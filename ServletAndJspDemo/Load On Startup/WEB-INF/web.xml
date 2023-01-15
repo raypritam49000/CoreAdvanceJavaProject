@@ -1,0 +1,12 @@
+<web-app>
+<servlet>
+<servlet-name>Hathi</servlet-name>
+<servlet-class>DemoServlet</servlet-class>
+<load-on-startup>1</load-on-startup>
+
+</servlet>
+<servlet-mapping>
+<servlet-name>Hathi</servlet-name>
+<url-pattern>/one</url-pattern>
+</servlet-mapping>
+</web-app>

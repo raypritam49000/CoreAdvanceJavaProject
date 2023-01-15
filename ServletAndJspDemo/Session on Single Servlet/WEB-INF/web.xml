@@ -1,0 +1,11 @@
+<web-app>
+
+<servlet>
+<servlet-name>ContextServlet</servlet-name>
+<servlet-class>DemoServlet1</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ContextServlet</servlet-name>
+<url-pattern>/run1</url-pattern>
+</servlet-mapping>
+</web-app>

@@ -1,0 +1,12 @@
+Method of ServletConfig:-
+
+1.public String getInitParameter(String paramname)
+2.public Enumeration getInitParameterNames()
+
+Method of ServletCotext:-
+
+1.public String getInitParameter(String paramname) 
+2.public Enumeration getInitParameterName()
+3.public void setAttribute(String name,Object o)
+4.public Object getAttribute(String name)
+5.public void removeAttribute(String name)

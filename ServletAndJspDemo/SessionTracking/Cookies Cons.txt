@@ -1,0 +1,77 @@
+
+
+Cookies Cons:-
+
+1.public Cookies(String name,String value)
+
+Method of Cookies class:-
+
+-public void setMaxAge(long sec)
+-public void setDomain(String domainName)
+-public String getName()
+-public String getValue()
+
+addCookie():-method of HttpServletRequest
+
+-public void addCookie(Cookie ck)
+
+getCookie():-method of HttpServletRequest
+
+-public Cookie[] getCookies()
+
+
+Advantage of Cookie:-
+
+the only advantage of cookie is it can not be modified.Apart from state management
+cookie can be ues to remember the user name,password,advertisement,customization of 
+web page etc.
+
+Disadvantage:-
+
+1.Cookie contain only string data.
+2.the maximum size of file that contain cookie can be up to 4kb;
+3.A browser can accept 20 cookie per web applicaation and 400 cookie total.
+4.Cookie highly browser independent and all the browser do not support the concept
+of cookie and the browsers that support this facility also provide the feture to delete the cookie by the client.
+
+
+If Cookie is Disable:-
+
+In this case session-id is send by java programer explicity by using the concept of
+encode url.Encode url method is define in the HttpServletRequest interface that rewrite the specified url by appending the session id.
+
+public String encodeURL(String url) 
+
+
+e.g.Changing the ServletLogin code:-
+...
+String encodeUrl=response.encodeURL("next");
+out.println(encodeUrl);
+out.println("<br><a href="+encodeUrl+">Next</a>");
+}
+}
+
+
+
+
+
+
+
+
+
+
+Method of HttpSession interface:-
+
+-public void setAttribute(String name,Object value)
+-public Object getAttribute(String name)
+-public Enumeraton getAttribute()
+-public void removeAttribute(String name)
+-public boolean isNew()
+-public void invalidate()
+-public void setMaxInactiveInterval(int sec)
+ 
+
+
+
+
+

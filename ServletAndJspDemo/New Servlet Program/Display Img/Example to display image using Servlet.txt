@@ -1,0 +1,54 @@
+Example to display image using Servlet
+
+In this example, we are using FileInputStream class to read image and ServletOutputStream class for writing this image content as a response. To make the performance faster, we have used BufferedInputStream and BufferedOutputStream class.
+
+You need to use the content type image/jpeg.
+
+In this example, we are assuming that you have java.jpg image inside the c:\test directory. You may change the location accordingly.
+
+To create this application, we have created three files:
+
+   1. index.html
+   2. DisplayImage.java
+   3. web.xml
+
+index.html
+
+This file creates a link that invokes the servlet. The url-pattern of the servlet is servlet1.
+
+<a href="servlet1">click for photo</a>
+
+DisplayImage.java
+
+This servlet class reads the image from the mentioned directory and writes the content in the response object using ServletOutputStream and BufferedOutputStream classes.
+
+package com.javatpoint;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+public class DisplayImage extends HttpServlet {
+
+	public void doGet(HttpServletRequest request,HttpServletResponse response)
+			 throws IOException
+	{
+	response.setContentType("image/jpeg");
+	ServletOutputStream out;
+	out = response.getOutputStream();
+	FileInputStream fin = new FileInputStream("c:\\test\\java.jpg");
+	
+	BufferedInputStream bin = new BufferedInputStream(fin);
+	BufferedOutputStream bout = new BufferedOutputStream(out);
+	int ch =0; ;
+	while((ch=bin.read())!=-1)
+	{
+	bout.write(ch);
+	}
+	
+	bin.close();
+	fin.close();
+	bout.close();
+	out.close();
+	}
+}
+
+download this example (developed using Myeclipse IDE)

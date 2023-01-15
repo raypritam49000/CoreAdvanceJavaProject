@@ -1,0 +1,8 @@
+javax.servlet.http.*(package):-
+1.interface:-
+-HttpServletRequest.
+-HttpServletResponse.
+-HttpSession.
+2.classes:-
+-HttpServlet
+-Cookies.

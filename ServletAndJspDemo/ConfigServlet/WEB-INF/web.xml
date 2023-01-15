@@ -1,0 +1,24 @@
+<web-app>
+<context-param>
+<param-name>driver</param-name>
+<param-value> sun.jdbc.odbc.jdbcodbcDriver</param-value>
+</context-param>
+
+<servlet>
+<servlet-name>ConfigServlet</servlet-name>
+<servlet-class>ConfigServlet</servlet-class>
+
+<init-param>
+<param-name>image</param-name>
+<param-value>1.jpg</param-value>
+</init-param>
+
+</servlet>
+
+
+<servlet-mapping>
+<servlet-name>ConfigServlet</servlet-name>
+<url-pattern>/run1</url-pattern>
+</servlet-mapping>
+
+</web-app>

@@ -1,0 +1,4 @@
+interface Servlet
+{
+ServletConfig getServletConfig();
+}

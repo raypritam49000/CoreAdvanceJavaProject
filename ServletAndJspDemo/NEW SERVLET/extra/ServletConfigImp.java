@@ -1,0 +1,2 @@
+class ServletConfigImp implements ServletConfig
+{}

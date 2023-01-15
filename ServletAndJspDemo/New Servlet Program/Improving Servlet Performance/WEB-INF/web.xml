@@ -1,0 +1,28 @@
+<web-app>
+ 
+ <listener>
+ <listener-class>MyListener</listener-class>
+ </listener>
+ 
+ <servlet>
+    <servlet-name>MyServlet1</servlet-name>
+    <servlet-class>MyServlet1</servlet-class>
+    
+  </servlet>
+  <servlet>
+    <servlet-name>MyServlet2</servlet-name>
+    <servlet-class>MyServlet2</servlet-class>
+    
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>MyServlet1</servlet-name>
+    <url-pattern>/servlet1</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MyServlet2</servlet-name>
+    <url-pattern>/servlet2</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+

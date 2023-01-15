@@ -1,0 +1,17 @@
+<web-app>
+
+<servlet>
+<servlet-name>xyz</servlet-name>
+<servlet-class>FirstServlet</servlet-class>
+
+</servlet>
+<servlet-mapping>
+<servlet-name>xyz</servlet-name>
+<url-pattern>run</url-pattern>
+</servlet-mapping>
+</web-app>
+
+
+
+		
+		

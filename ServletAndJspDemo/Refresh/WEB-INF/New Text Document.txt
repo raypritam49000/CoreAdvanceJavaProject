@@ -1,0 +1,11 @@
+<web-app>
+<servlet>
+<servlet-name>
+Hello
+</servlet-name>
+<setvlet-class>
+RefreshServlet
+</setvlet-class>
+<servlet>
+
+</web-app>

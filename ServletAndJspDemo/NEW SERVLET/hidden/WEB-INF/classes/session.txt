@@ -1,0 +1,6 @@
+public void setAttribute(String name,Object value)
+public Object getAttribute(String name)
+publi void removeAttribute(String name)
+public boolean isNew()
+public void setMaxInactiveInterval(long min/sec)
+public void invalidate()

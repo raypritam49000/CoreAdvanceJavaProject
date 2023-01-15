@@ -1,0 +1,35 @@
+<web-app>
+<listener>
+<listener-class>MyListener</listener-class>
+</listener>
+<servlet>
+<servlet-name>first</servlet-name>
+<servlet-class>LoginServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>first</servlet-name>
+<url-pattern> /run </url-pattern> 
+</servlet-mapping>
+
+<servlet>
+<servlet-name>logout</servlet-name>
+<servlet-class>LogoutServelt</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>logout</servlet-name>
+<url-pattern> /logout </url-pattern> 
+</servlet-mapping>
+
+<servlet>
+<servlet-name>view</servlet-name>
+<servlet-class>CountServelt</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>view</servlet-name>
+<url-pattern> /count </url-pattern> 
+</servlet-mapping>
+
+<welcome-file-list>
+<welcome-file>home.html</welcome-file>
+</welcome-file-list>
+</web-app>

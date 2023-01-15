@@ -1,0 +1,240 @@
+Improving Servlet performance to fetch records from database
+
+In this example, we are going to improve the performance of web application to fetch records from the database. To serve this, we are storing the data of the table in a collection, and reusing this collection in our servlet. So, we are not directly hitting the database again and again. By this, we are improving the performance.
+
+To run this application, you need to create following table with some records.
+
+CREATE TABLE  "CSUSER" 
+   (	"USERID" NUMBER, 
+	"USERNAME" VARCHAR2(4000), 
+	"USERPASS" VARCHAR2(4000), 
+	"USEREMAIL" VARCHAR2(4000), 
+	"USERCOUNTRY" VARCHAR2(4000), 
+	"CONTACT" NUMBER, 
+	 CONSTRAINT "CSUSER_PK" PRIMARY KEY ("USERID") ENABLE
+   )
+/
+
+Example to Improve the performance of servlet to fetch records from database
+
+In this example, we have created 6 pages.
+
+   1. index.html
+   2. User.java
+   3. MyListener.java
+   4. MyServlet1.java
+   5. MyServlet2.java
+   6. web.xml
+
+1) index.html
+
+This html file contains two links that sends request to the servlet.
+
+<a href="servlet1">first servlet</a>|
+<a href="servlet2">second servlet</a>
+
+2) User.java
+
+This is simple bean class containing 3 properties with its getters and setters. This class represents the table of the database.
+
+public class User {
+private int id;
+private String name,password;
+
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
+}
+
+
+}
+
+3) MyListener.java
+
+It is the listener class. When the project will be deployed, contextInitialized method of ServletContextListener is invoked by default. Here, we are getting the records of the table and storing it in the User class object which is added in the ArrayList class object. At last, all the records of the table will be stored in the ArrayList class object (collection). Finally, we are storing the ArrayList object in the ServletConext object as an attribute so that we can get it in the servlet and use it.
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.sql.*;
+import java.util.ArrayList;
+
+public class MyListener implements ServletContextListener{
+
+ public void contextInitialized(ServletContextEvent e) {
+		
+  ArrayList list=new ArrayList();
+   try{
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    Connection con=DriverManager.getConnection(
+     "jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
+			
+    PreparedStatement ps=con.prepareStatement("select * from csuser");
+    ResultSet rs=ps.executeQuery();
+    while(rs.next()){
+     User u=new User();
+     u.setId(rs.getInt(1));
+     u.setName(rs.getString(2));
+     u.setPassword(rs.getString(3));
+     list.add(u);
+    }
+    con.close();
+			
+   }catch(Exception ex){System.out.print(ex);}
+
+   //storing the ArrayList object in ServletContext		
+   ServletContext context=e.getServletContext();
+   context.setAttribute("data",list);
+		
+ }
+ public void contextDestroyed(ServletContextEvent arg0) {
+	System.out.println("project undeployed...");
+ }
+
+}
+
+4) MyServlet1.java
+
+This servlet gets the information from the servlet context object and prints it.
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class MyServlet1 extends HttpServlet {
+ public void doGet(HttpServletRequest request, HttpServletResponse
+   response)throws ServletException, IOException {
+
+	response.setContentType("text/html");
+	PrintWriter out = response.getWriter();
+	
+	long before=System.currentTimeMillis();
+		
+	ServletContext context=getServletContext();
+	List list=(List)context.getAttribute("data");
+		
+	Iterator itr=list.iterator();
+	while(itr.hasNext()){
+	 User u=(User)itr.next();
+	 out.print("<br>"+u.getId()+" "+u.getName()+" "+u.getPassword());
+	}
+		
+	long after=System.currentTimeMillis();
+	out.print("<br>total time :"+(after-before));
+		
+	out.close();
+	}
+
+}
+
+
+5) MyServlet2.java
+
+It is same as MyServlet1. This servlet gets the information from the servlet context object and prints it.
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class MyServlet2 extends HttpServlet {
+ public void doGet(HttpServletRequest request, HttpServletResponse
+   response)throws ServletException, IOException {
+
+	response.setContentType("text/html");
+	PrintWriter out = response.getWriter();
+	
+	long before=System.currentTimeMillis();
+		
+	ServletContext context=getServletContext();
+	List list=(List)context.getAttribute("data");
+		
+	Iterator itr=list.iterator();
+	while(itr.hasNext()){
+	 User u=(User)itr.next();
+	 out.print("<br>"+u.getId()+" "+u.getName()+" "+u.getPassword());
+	}
+		
+	long after=System.currentTimeMillis();
+	out.print("<br>total time :"+(after-before));
+		
+	out.close();
+	}
+
+}
+
+
+6) web.xml
+
+Here we are containing the information about servlets and listener.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ 
+ <listener>
+ <listener-class>MyListener</listener-class>
+ </listener>
+ 
+ <servlet>
+    <servlet-name>MyServlet1</servlet-name>
+    <servlet-class>MyServlet1</servlet-class>
+    
+  </servlet>
+  <servlet>
+    <servlet-name>MyServlet2</servlet-name>
+    <servlet-class>MyServlet2</servlet-class>
+    
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>MyServlet1</servlet-name>
+    <url-pattern>/servlet1</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MyServlet2</servlet-name>
+    <url-pattern>/servlet2</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+

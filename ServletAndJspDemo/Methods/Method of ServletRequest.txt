@@ -1,0 +1,36 @@
+Method of ServletRequest:-
+
+1.public String getParameter(String paramName)
+
+2.public String[] getParameterValues(String paramName)
+
+3.public Enumeration getPrameterNames()
+
+4.public InputStream getInputStram() throws IOException
+
+5.public void setAttribute(String name,Object value)
+
+6.public Object getAttribute(String name)
+
+7.public String getRealPath(String path)
+
+
+
+
+Method of ServletResponse:-
+
+1.public OutputStream getOutputStream() throws IOException
+2.public PrintWriter getWriter()throws IOException
+3.public void setContentType(String MIME type)
+
+
+
+
+
+
+
+
+
+
+
+
